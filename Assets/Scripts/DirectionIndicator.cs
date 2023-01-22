@@ -38,10 +38,8 @@ public class DirectionIndicator : MonoBehaviour
             lr.material = new Material (Shader.Find("Sprites/Default"));
             lr.positionCount = 2;
             startPos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) + camOffset);
-            print("startPos = " + startPos);
             lr.SetPosition(0, startPos);
             lr.useWorldSpace = true;
-            print("Mouse Down!");
             lr.numCapVertices = 10;
         }
 

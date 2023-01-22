@@ -51,8 +51,6 @@ public class universalScript : MonoBehaviour
             CollidePlayerWithDisk();
         }
 
-        print("bounds goal " + goal.GetComponent<Renderer>().bounds.size);
-
         var goalSize = goal.GetComponent<Renderer>().bounds.size;
         // disk enters Goal
         if ((disk.transform.position.x > goal.transform.position.x - (goalSize.x / 2))
@@ -71,7 +69,6 @@ public class universalScript : MonoBehaviour
 
         // reset
         if (OutOfBounds() || manualReset) {
-            print("reset");
             ResetPlayer();
             ResetDisk();
             manualReset = false;
@@ -94,7 +91,6 @@ public class universalScript : MonoBehaviour
             var newVelocity = Vector3.Distance(directionIndicator.startPos, directionIndicator.endPos) * 5;
             if (newVelocity > 30) newVelocity = 30;
             player.velocity = newVelocity;
-            print("vel" + player.velocity);
         } 
         
         if (Input.GetKeyUp(KeyCode.R)) manualReset = true;
@@ -138,7 +134,6 @@ public class universalScript : MonoBehaviour
 
         foreach (PointCharge1 pc in allCharges) {
             var f = CalculateCoulombForce(player, pc);
-            print("sum " + f);
             sumOfAllForces += f;
         }
 
