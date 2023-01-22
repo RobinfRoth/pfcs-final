@@ -9,6 +9,7 @@ public class DirectionIndicator : MonoBehaviour
     Camera cam;
     LineRenderer lr;
     [SerializeField] AnimationCurve ac;
+    Player player;
 
     Vector3 camOffset = new Vector3(0, -10, 10);
 
@@ -16,15 +17,17 @@ public class DirectionIndicator : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        player = player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool playerIsAtStart = (player.transform.position == player.startPosition);
         // 0 = left mouse button
 
         // on mouse button clicked
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && playerIsAtStart)
         {
             if (lr == null)
             {
@@ -43,14 +46,14 @@ public class DirectionIndicator : MonoBehaviour
         }
 
         // when holding the mouse button down
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && playerIsAtStart)
         {
             endPos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) + camOffset);
             lr.SetPosition(1, endPos);
         }
 
         // on releasing the mouse button
-        if (Input.GetMouseButtonUp(0)) 
+        if (Input.GetMouseButtonUp(0) && playerIsAtStart) 
         {
             lr.enabled = false;
         }

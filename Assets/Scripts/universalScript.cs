@@ -13,6 +13,7 @@ public class universalScript : MonoBehaviour
     DirectionIndicator directionIndicator;
     TextMeshProUGUI text;
     List<PointCharge1> allCharges;
+    int level = 1;
 
     bool started = false;
     bool manualReset = false;
@@ -58,7 +59,14 @@ public class universalScript : MonoBehaviour
             && (disk.transform.position.z < goal.transform.position.z + (goalSize.z / 2) || disk.transform.position.z > goal.transform.position.z - (goalSize.z / 2)))
         {
             text.fontSize = 120;
-            print("Goal");
+            if (level == 2) text.text = "WIN!";
+            allCharges[0].transform.position = new Vector3(20, 0, 15);
+            allCharges[1].transform.position = new Vector3(35, 0, -5);
+            allCharges[2].transform.position = new Vector3(8, 0, 20);
+            allCharges[3].transform.position = new Vector3(50, 0, -8);
+            ResetPlayer();
+            ResetDisk();
+            level += 1;
         }
 
         // reset
@@ -76,9 +84,12 @@ public class universalScript : MonoBehaviour
     // run once per frame
     void Update()
     {
-       if (Input.GetMouseButtonUp(0)) 
-        {
+        bool playerIsAtStart = (player.transform.position == player.startPosition);
+
+        if (Input.GetMouseButtonUp(0) && playerIsAtStart) 
+        {  
             started = true;
+            text.fontSize = 0;
             player.direction = (directionIndicator.startPos - directionIndicator.endPos).normalized;
             player.velocity = Vector3.Distance(directionIndicator.startPos, directionIndicator.endPos) * 5;
         } 
