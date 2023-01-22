@@ -56,14 +56,14 @@ public class universalScript : MonoBehaviour
         var goalSize = goal.GetComponent<Renderer>().bounds.size;
         // disk enters Goal
         if ((disk.transform.position.x > goal.transform.position.x - (goalSize.x / 2))
-            && (disk.transform.position.z < goal.transform.position.z + (goalSize.z / 2) || disk.transform.position.z > goal.transform.position.z - (goalSize.z / 2)))
+            && (disk.transform.position.z < goal.transform.position.z + (goalSize.z / 2) && disk.transform.position.z > goal.transform.position.z - (goalSize.z / 2)))
         {
             text.fontSize = 120;
             if (level == 2) text.text = "WIN!";
             allCharges[0].transform.position = new Vector3(20, 0, 15);
             allCharges[1].transform.position = new Vector3(35, 0, -5);
             allCharges[2].transform.position = new Vector3(8, 0, 20);
-            allCharges[3].transform.position = new Vector3(50, 0, -8);
+            allCharges[3].transform.position = new Vector3(45, 0, 10);
             ResetPlayer();
             ResetDisk();
             level += 1;
