@@ -10,10 +10,11 @@ public class universalScript : MonoBehaviour
     Player player;
     Disk disk;
     Goal goal;
-
     DirectionIndicator directionIndicator;
     TextMeshProUGUI text;
     List<PointCharge1> allCharges;
+
+    bool started = false;
     
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,6 @@ public class universalScript : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         disk = GameObject.FindWithTag("Disk").GetComponent<Disk>();
         goal = GameObject.FindWithTag("Goal").GetComponent<Goal>();
-
         directionIndicator = GameObject.FindWithTag("Direction Indicator").GetComponent<DirectionIndicator>();
         text = GameObject.FindWithTag("Win Text").GetComponent<TextMeshProUGUI>();
 
@@ -50,7 +50,7 @@ public class universalScript : MonoBehaviour
         }
 
         // disk enters Goal
-        if (distancePlayerToDisk < (disk.GetComponent<Renderer>().bounds.size.x + goal.GetComponent<Renderer>().bounds.size.x)/2)
+        if (distanceDiskToGoal < (disk.GetComponent<Renderer>().bounds.size.x + goal.GetComponent<Renderer>().bounds.size.x)/2)
         {
             text.fontSize = 120;
             print("Goal");
@@ -63,7 +63,14 @@ public class universalScript : MonoBehaviour
     // run once per frame
     void Update()
     {
-        
+       if (Input.GetMouseButtonUp(0)) 
+        {
+            started = true;
+            player.direction = (directionIndicator.startPos - directionIndicator.endPos).normalized;
+            player.velocity = Vector3.Distance(directionIndicator.startPos, directionIndicator.endPos) * 5;
+            print("direction " + player.direction);
+            print("velocity " + player.velocity);
+        } 
     }
 
     private void CollidePlayerWithDisk()
@@ -98,6 +105,8 @@ public class universalScript : MonoBehaviour
 
     private void UpdatePlayer()
     { 
+        if (! started) return;
+        
         var sumOfAllForces = new Vector3(0, 0, 0);
 
         foreach (PointCharge1 pc in allCharges) {
@@ -114,7 +123,9 @@ public class universalScript : MonoBehaviour
     }
 
     private void UpdateDisk() 
-    {
+    {   
+        if (!started) return;
+
         disk.transform.position += disk.velocity * disk.direction.normalized * dt;
     }
 }

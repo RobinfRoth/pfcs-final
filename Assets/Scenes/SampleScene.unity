@@ -1353,6 +1353,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b308b641a2d810449a4452824e0c67cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ac:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0027873411
+      value: 1.0009345
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.41750216
+      value: 0.62621397
+      inSlope: -1.4404385
+      outSlope: -1.4404385
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0014453
+      value: 0.29100922
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1788123569
 Transform:
   m_ObjectHideFlags: 0
