@@ -15,6 +15,7 @@ public class universalScript : MonoBehaviour
     List<PointCharge1> allCharges;
 
     bool started = false;
+    bool manualReset = false;
     
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,14 @@ public class universalScript : MonoBehaviour
             print("Goal");
         }
 
+        // reset
+        if (OutOfBounds() || manualReset) {
+            print("reset");
+            ResetPlayer();
+            ResetDisk();
+            manualReset = false;
+        }
+
         UpdatePlayer();
         UpdateDisk();
     }
@@ -68,9 +77,9 @@ public class universalScript : MonoBehaviour
             started = true;
             player.direction = (directionIndicator.startPos - directionIndicator.endPos).normalized;
             player.velocity = Vector3.Distance(directionIndicator.startPos, directionIndicator.endPos) * 5;
-            print("direction " + player.direction);
-            print("velocity " + player.velocity);
         } 
+        
+        if (Input.GetKeyUp(KeyCode.R)) manualReset = true;
     }
 
     private void CollidePlayerWithDisk()
@@ -127,5 +136,22 @@ public class universalScript : MonoBehaviour
         if (!started) return;
 
         disk.transform.position += disk.velocity * disk.direction.normalized * dt;
+    }
+
+    private void ResetPlayer()
+    {
+        player.transform.position = player.startPosition;
+        player.velocity = 0;
+    }
+
+    private void ResetDisk()
+    {
+        disk.transform.position = disk.startPosition;
+        disk.velocity = 0;
+    }
+
+    private bool OutOfBounds() {
+        return ((player.transform.position.x > 110) || (player.transform.position.x < -20))
+            || ((player.transform.position.z > 60) || (player.transform.position.z < -30));
     }
 }
