@@ -92,7 +92,7 @@ public class universalScript : MonoBehaviour
             text.fontSize = 0;
             player.direction = (directionIndicator.startPos - directionIndicator.endPos).normalized;
             var newVelocity = Vector3.Distance(directionIndicator.startPos, directionIndicator.endPos) * 5;
-            if (newVelocity > 50) newVelocity = 25;
+            if (newVelocity > 30) newVelocity = 30;
             player.velocity = newVelocity;
             print("vel" + player.velocity);
         } 
@@ -132,15 +132,21 @@ public class universalScript : MonoBehaviour
 
     private void UpdatePlayer()
     { 
-        if (! started) return;
+        if (!started) return;
         
         var sumOfAllForces = new Vector3(0, 0, 0);
 
         foreach (PointCharge1 pc in allCharges) {
             var f = CalculateCoulombForce(player, pc);
+            print("sum " + f);
             sumOfAllForces += f;
         }
 
+        if (sumOfAllForces.x < -200 || sumOfAllForces.z < -200)
+        {
+            player.velocity = 0;
+        }
+        
         player.transform.position += player.velocity * player.direction * (dt/2);
         player.direction += (sumOfAllForces / player.mass) * dt;
         player.transform.position += player.velocity * player.direction.normalized * (dt/2);
