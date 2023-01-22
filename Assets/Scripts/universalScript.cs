@@ -50,8 +50,12 @@ public class universalScript : MonoBehaviour
             CollidePlayerWithDisk();
         }
 
+        print("bounds goal " + goal.GetComponent<Renderer>().bounds.size);
+
+        var goalSize = goal.GetComponent<Renderer>().bounds.size;
         // disk enters Goal
-        if (distanceDiskToGoal < (disk.GetComponent<Renderer>().bounds.size.x + goal.GetComponent<Renderer>().bounds.size.x)/2)
+        if ((disk.transform.position.x > goal.transform.position.x - (goalSize.x / 2))
+            && (disk.transform.position.z < goal.transform.position.x + (goalSize.z / 2) || disk.transform.position.z > goal.transform.position.x - (goalSize.z / 2)))
         {
             text.fontSize = 120;
             print("Goal");
@@ -120,11 +124,8 @@ public class universalScript : MonoBehaviour
 
         foreach (PointCharge1 pc in allCharges) {
             var f = CalculateCoulombForce(player, pc);
-            Debug.Log("PointCharge" + pc + ": " + f);
             sumOfAllForces += f;
         }
-
-        Debug.Log(sumOfAllForces);
 
         player.transform.position += player.velocity * player.direction * (dt/2);
         player.direction += (sumOfAllForces / player.mass) * dt;
