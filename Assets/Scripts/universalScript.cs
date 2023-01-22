@@ -55,7 +55,7 @@ public class universalScript : MonoBehaviour
         var goalSize = goal.GetComponent<Renderer>().bounds.size;
         // disk enters Goal
         if ((disk.transform.position.x > goal.transform.position.x - (goalSize.x / 2))
-            && (disk.transform.position.z < goal.transform.position.x + (goalSize.z / 2) || disk.transform.position.z > goal.transform.position.x - (goalSize.z / 2)))
+            && (disk.transform.position.z < goal.transform.position.z + (goalSize.z / 2) || disk.transform.position.z > goal.transform.position.z - (goalSize.z / 2)))
         {
             text.fontSize = 120;
             print("Goal");
