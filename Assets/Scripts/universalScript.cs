@@ -91,7 +91,10 @@ public class universalScript : MonoBehaviour
             started = true;
             text.fontSize = 0;
             player.direction = (directionIndicator.startPos - directionIndicator.endPos).normalized;
-            player.velocity = Vector3.Distance(directionIndicator.startPos, directionIndicator.endPos) * 5;
+            var newVelocity = Vector3.Distance(directionIndicator.startPos, directionIndicator.endPos) * 5;
+            if (newVelocity > 50) newVelocity = 25;
+            player.velocity = newVelocity;
+            print("vel" + player.velocity);
         } 
         
         if (Input.GetKeyUp(KeyCode.R)) manualReset = true;
