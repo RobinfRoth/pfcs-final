@@ -94,6 +94,11 @@ public class universalScript : MonoBehaviour
         } 
         
         if (Input.GetKeyUp(KeyCode.R)) manualReset = true;
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void CollidePlayerWithDisk()
